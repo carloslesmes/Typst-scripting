@@ -1,15 +1,14 @@
-#set page(header: align(right)[Lenguaje Typst], footer: [Lesmes])
+#set page(numbering: "1", header: align(right)[Lenguaje Typst])
 #set par(justify: true)
-#set text(size: 12pt)
+#set text(size: 12pt, lang: "es")
 #set heading(numbering: "1.")
-#show link: set text(fill: blue)
+#show link: set text(fill: rgb("#092757"))
 #show link: underline
-#set table(
-  fill: (_, y) => if calc.odd(y) { rgb("EAF2F5") },)
+#set table(  fill: (_, y) => if calc.odd(y) { rgb("EAF2F5") },)
 #show heading: set text(blue)
 
-#show title: set align(center)
-#title[Lenguaje de programación Typst]
+
+#align(center,[Lenguaje de programación Typst])
 #linebreak()
 Viendo Typst como un lenguaje de programación.
 
@@ -53,18 +52,17 @@ Para seleccionar tamaños se usan puntos(pt), centímetros(cm), milímetros(mm) 
 
 #align(center,[1 in = 72 pt = 2.54 cm= 25.54 mm])
 
-= Fracción `fr`
+== Fracción `fr`
 #linebreak()
 Define como distribuir el espacio en un diseño. En el siguiente ejemplo: toda la línea es 100%=3fr y así 33.3% es 1fr y 66% es 2fr del espacio respectivamente. Es decir `fr` determina la fracción de espacio a usar dentro de una línea u otro espacio.
-
-== Ejemplo
+=== Ejemplo
 #linebreak()
 ```Typst
 Negro #h(1fr)  Gris #h(2fr) Blanco
 ```
 Negro #h(1fr)  Gris #h(2fr) Blanco
 
-== Otro ejemplo
+=== Otro ejemplo
 #linebreak()
 ```Typst
 Primero #h(1fr) Segundo \
@@ -78,6 +76,60 @@ Primero #h(1fr) Segundo #h(1fr) Tercero \
 Primero #h(2fr) Segundo #h(1fr) Tercero \
 Uno #h(1fr) Dos #h(1fr) Tres #h(2fr) Cinco
 
+== Ángulos 
+#linebreak()
+Usado para rotaciones. Se puede usar radianes o grados, por ejemplo:
+
+```Typst
+#rotate(0.5rad)[uno]
+#rotate(-16deg)[dos]
+```
+#rotate(0.5rad)[uno]
+#rotate(-16deg)[dos]
+#pagebreak()
+== Colores
+Colores definidos en typst:
+
+#figure(
+table(columns: 2, 
+[Color],	[Definición],
+[black],	[luma(0)],
+[gray],	[luma(170)],
+[silver],	[luma(221)],
+[white],	[luma(255)],
+[navy],	[rgb("\#001f3f")],
+[blue],	[rgb("\#0074d9")],
+[aqua],	[rgb("\#7fdbff")],
+[teal],	[rgb("\#39cccc")],
+[eastern],	[rgb("\#239dad")],
+[purple],	[rgb("\#b10dc9")],
+[fuchsia],	[rgb("\#f012be")],
+[maroon],	[rgb("\#85144b")],
+[red],	[rgb("\#ff4136")],
+[orange],	[rgb("\#ff851b")],
+[yellow],	[rgb("\#ffdc00")],
+[olive],	[rgb("\#3d9970")],
+[green],	[rgb("\#2ecc40")],
+[lime],	[rgb("\#01ff70")]),caption: [Colores en Typst]) <tab-uno>
+
+Typst también soporta `rgb`,`cmyk`,`luma`,`oklab`, .... Vea más en:
+
+#link("https://typst.app/docs/reference/visualize/color/")
+
+=== Ejemplos
+```Typst
+#rect(fill: aqua)
+#square(fill: luma(70))
+#emph(text(fuchsia)[
+  With a function call.
+])
+```
+#rect(fill: aqua)
+#square(fill: luma(170))
+#emph(text(fuchsia)[
+  Texto en color
+])
+#pagebreak()
 = Tipos en  Typst
 #linebreak()
 En typst los objetos tienen _tipos_:
@@ -102,7 +154,7 @@ En typst los objetos tienen _tipos_:
 #type(type)\
 #type(true)])
 #pagebreak()
-= Funciones incluidas en Typst
+= Algunas funciones incluidas en Typst
 #linebreak()
 Una función de typst empieza con \#. Algunas funciones son:
 #grid(columns: 2, column-gutter: 5cm,align: center,
@@ -133,10 +185,14 @@ Una función de typst empieza con \#. Algunas funciones son:
 #grid(columns: 2, column-gutter: 3cm,align: center,
 [```Typst
 #let editor="Typst"
-Documento escrito con #editor.
+Documento escrito con #editor.\
+#let xy = 8
+#xy
 ```],
 [#let editor="Typst"
-Documento escrito con #editor.])
+Documento escrito con #editor.\
+#let xy=8
+#xy ])
 
 = Funciones creadas por el usuario
 #linebreak()
@@ -194,8 +250,6 @@ Se pueden crear bloques de código.
 ```
 ],
 [#{ let x = 1; x + 2 }])
-
-#{ let x = 1; x + 2 }
 
 = Arreglos
 #linebreak()
@@ -274,15 +328,12 @@ Funcionan muy al estilo _Python_:
 #linebreak()
 El siguiente código colorea las filas impares de todas las tablas del documento:
 
-#grid(columns: 2, column-gutter: 5cm,align: center,
-[```typ
+```typ
 #set table(
   fill: (_, y) => if calc.odd(y) { rgb("EAF2F5") },
 )
-```],
-[#set table(
-  fill: (_, y) => if calc.odd(y) { rgb("EAF2F5") },
-)])
+```
+
 
 #align(center,
 table(columns:2,align: center+horizon,
@@ -755,7 +806,7 @@ rect[#valores.pop() \
 
 = Paquetes
 #linebreak()
-Un paquete de Typst es un bloque de código que se puede reutilizar. Para utilizar bloques de código ya elaborados se debe importar:
+Un paquete de Typst es un bloque de código que se puede reutilizar. Para utilizar bloques de código ya elaborados se debe importar, por ejemplo:
 
 #grid(
   columns: (1fr, 1fr),
